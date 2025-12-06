@@ -63,3 +63,24 @@ def f_C2(C1, C2, m):
     C2 = ((k1 * C1 - k2 * C2) * ro * np.pi * (D ** 2)) / (4 * m)
     return C2
 
+
+# Расчет входной концентрации бензола
+C1 = (m_c1 * ro) / ((m_c1+m_O2) * mu_C1)
+
+# Расчет массового расхода реакционной среды, кг/с.
+m0 = m_c1+m_O2
+
+C2 = 0
+l = 0
+
+# Массивы для сохранения концентраций
+C1_val = [C1]
+C2_val = [C2]
+C1_proc = percent_C(C1, mu_C1)
+C2_proc = percent_C(C2, mu_C2)
+C1_percent_array = [C1_proc]
+C2_percent_array = [C2_proc]
+l_val = [l]
+
+print(f"Концентрация бензола на входе: {C1_val[0]} моль/кг, {C1_percent_array[0]} %")
+print("m0 =", m0)
