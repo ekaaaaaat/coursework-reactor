@@ -102,3 +102,23 @@ while l < L:
 
 print(f"Концентрация малеинового ангидрида на выходе: {C2_val[-1]} моль/кг, {C2_percent_array[-1]} %")
 print(f"Длина трубы: {l_val[-1]} м")
+
+# Построение графиков концентраций
+plt.subplot(1, 2, 1)
+plt.plot(l_val, C1_percent_array)
+plt.grid(True)
+plt.xlabel('$l, м$')
+plt.ylabel('C1,%')
+plt.axhline(0, color='black', linewidth=1)
+plt.axvline(0, color='black', linewidth=1)
+
+plt.subplot(1, 2, 2)
+plt.plot(l_val, C2_percent_array)
+plt.grid(True)
+plt.xlabel('$l, м$')
+plt.ylabel('C2,%')
+plt.axhline(0, color='black', linewidth=1)
+plt.axvline(0, color='black', linewidth=1)
+
+plt.tight_layout()
+plt.show()
