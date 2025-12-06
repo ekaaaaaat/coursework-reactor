@@ -84,3 +84,21 @@ l_val = [l]
 
 print(f"Концентрация бензола на входе: {C1_val[0]} моль/кг, {C1_percent_array[0]} %")
 print("m0 =", m0)
+
+# Численное интегрирование по длине трубы методом Эйлера
+while l < L:
+    C1_0 = C1
+    C1 += f_C1(C1, m0) * d_l
+    C2 += f_C2(C1_0, C2, m0) * d_l
+    l += d_l
+
+    C1_val.append(C1)
+    C2_val.append(C2)
+    C1_proc = percent_C(C1, mu_C1)
+    C2_proc = percent_C(C2, mu_C2)
+    C1_percent_array.append(C1_proc)
+    C2_percent_array.append(C2_proc)
+    l_val.append(l)
+
+print(f"Концентрация малеинового ангидрида на выходе: {C2_val[-1]} моль/кг, {C2_percent_array[-1]} %")
+print(f"Длина трубы: {l_val[-1]} м")
