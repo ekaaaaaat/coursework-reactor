@@ -36,3 +36,11 @@ k2 = A2 * np.exp(-E2 / (R*T))
 k3 = A3 * np.exp(-E3 / (R*T))
 
 print("k1 =", k1, "k2 =", k2, "k3 =", k3)
+
+
+def percent_C(C_m, mu):
+    # Перевод концентрации из моль/кг в %.
+
+    C = (C_m * 100 * mu) / ro
+    return C
+
