@@ -105,7 +105,6 @@ def calculating_model(L):
 C2_proc, C1_val, C2_val, C1_percent_array, C2_percent_array, l_val = calculating_model(L)
 
 print(f"Концентрация бензола на входе: {C1_val[0]} моль/м^3, {C1_percent_array[0]} %")
-print("m0 =", m0)
 print(f"Концентрация малеинового ангидрида на выходе: {C2_val[-1]} моль/м^3, {C2_percent_array[-1]} %")
 print(f"Длина трубы: {l_val[-1]} м")
 
