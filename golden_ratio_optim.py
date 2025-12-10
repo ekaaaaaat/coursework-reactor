@@ -103,6 +103,7 @@ def graf(a_, b_, f_, ak, bk, x):
     plt.show()
 
 
+print("\nТестирование работы метода на контрольном примере: ")
 type_ex = type_of_extremum(a0, b0, f)
 print('Тип экстремума: ' + type_ex)
 if type_ex == 'минимум':
@@ -116,3 +117,19 @@ for i in range(len(x_values)):
     table.append([i, ak_values[i], bk_values[i], x_values[i]])
 print(tabulate(table, headers=["Итерация", "a", "b", "x"], tablefmt="pretty"))
 graf(a0, b0, f, ak_values, bk_values, x_values)
+
+
+print("\nОптимизация объекта проектирования по заданному критерию")
+type_ex = type_of_extremum(a0, b0, positive_calculating_model)
+print('Тип экстремума: ' + type_ex)
+if type_ex == 'минимум':
+    ak_values, bk_values, x_values = golden_ratio(0, 30, positive_calculating_model, eps)
+else:
+    ak_values, bk_values, x_values = golden_ratio(0, 30, negative_calculating_model, eps)
+
+print(f'L = {x_values[-1]:.6f} C2 = {positive_calculating_model(x_values[-1]):.6f}')
+table = []
+for i in range(len(x_values)):
+    table.append([i, ak_values[i], bk_values[i], x_values[i]])
+print(tabulate(table, headers=["Итерация", "a", "b", "x"], tablefmt="pretty"))
+graf(0, 30, positive_calculating_model, ak_values, bk_values, x_values)
