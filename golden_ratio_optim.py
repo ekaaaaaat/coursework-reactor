@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tabulate import tabulate
+from mat_model import calculating_model
 
 # Начальный интервал поиска и точность
 a0 = -10
@@ -16,6 +17,16 @@ def f(x):
 def negative_f(x):
     # Функция с противоположным знаком (если экстремум максимум)
     return -(1 - x**2)
+
+
+def positive_calculating_model(L):
+    C2, _, _, _, _, _ = calculating_model(L)
+    return C2
+
+
+def negative_calculating_model(L):
+    C2, _, _, _, _, _ = calculating_model(L)
+    return -C2
 
 
 def type_of_extremum(a_, b_, f_):
