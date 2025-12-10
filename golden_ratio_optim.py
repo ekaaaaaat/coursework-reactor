@@ -20,11 +20,14 @@ def negative_f(x):
 
 
 def positive_calculating_model(L):
+    # Функция для получения только выходной концентрации С2 из подпрограммы ММ (для использования при оптимизации)
     C2, _, _, _, _, _ = calculating_model(L)
     return C2
 
 
 def negative_calculating_model(L):
+    # Функция для получения только выходной концентрации С2 из подпрограммы ММ
+    # с противоположным знаком (экстремум максимум)
     C2, _, _, _, _, _ = calculating_model(L)
     return -C2
 
