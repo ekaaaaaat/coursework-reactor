@@ -83,11 +83,15 @@ def golden_ratio(a_, b_, f_, eps_):
 def graf(a_, b_, f_, ak, bk, x):
     # Функция для построения графика целевой функции и последовательности отрезков [ak, bk]
 
+    plt.figure(figsize=(10, 5))
     plt.xlabel("x")
     plt.ylabel("y")
     plt.grid()
-    k = np.linspace(a_ - 0.1, b_ + 0.1, 1000)
-    plt.plot(k, f_(k), color='purple', linewidth=2.0, label='Целевая функция')
+    f_array = []
+    k = np.linspace(a_ - 0.1, b_ + 0.1, 100)
+    for i in k:
+        f_array.append(f_(i))
+    plt.plot(k, f_array, color='purple', linewidth=2.0, label='Целевая функция')
     plt.plot([x[0], x[0]], [f_(x[0]), -5], color='g', ls='--', linewidth=2.0, marker='x', markersize=7, label='x*')
     plt.plot([ak[0], ak[0]], [f_(ak[0]), -5], color='hotpink', ls='--', linewidth=1.0, marker='o', markersize=4, label='ak')
     plt.plot([bk[0], bk[0]], [f_(bk[0]), -5], color='aqua', ls='--', linewidth=1.0, marker='o', markersize=4, label='bk')
