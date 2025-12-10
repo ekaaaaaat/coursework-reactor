@@ -64,42 +64,48 @@ def f_C2(C1, C2, m):
     return C2
 
 
-# Расчет входной концентрации бензола
-C1 = (m_c1 * ro) / ((m_c1+m_O2) * mu_C1)
+def calculating_model(L):
+    # Расчет входной концентрации бензола
+    C1 = (m_c1 * ro) / ((m_c1 + m_O2) * mu_C1)
 
-# Расчет массового расхода реакционной среды, кг/с.
-m0 = m_c1+m_O2
+    # Расчет массового расхода реакционной среды, кг/с.
+    m0 = m_c1 + m_O2
+    # print("m0 =", m0)
 
-C2 = 0
-l = 0
+    C2 = 0
+    l = 0
 
-# Массивы для сохранения концентраций
-C1_val = [C1]
-C2_val = [C2]
-C1_proc = percent_C(C1, mu_C1)
-C2_proc = percent_C(C2, mu_C2)
-C1_percent_array = [C1_proc]
-C2_percent_array = [C2_proc]
-l_val = [l]
+    # Массивы для сохранения концентраций
+    C1_val = [C1]
+    C2_val = [C2]
+    C1_proc = percent_C(C1, mu_C1)
+    C2_proc = percent_C(C2, mu_C2)
+    C1_percent_array = [C1_proc]
+    C2_percent_array = [C2_proc]
+    l_val = [l]
+
+    # Численное интегрирование по длине трубы методом Эйлера
+    while l < L:
+        C1_0 = C1
+        C1 += f_C1(C1, m0) * d_l
+        C2 += f_C2(C1_0, C2, m0) * d_l
+        l += d_l
+
+        C1_val.append(C1)
+        C2_val.append(C2)
+        C1_proc = percent_C(C1, mu_C1)
+        C2_proc = percent_C(C2, mu_C2)
+        C1_percent_array.append(C1_proc)
+        C2_percent_array.append(C2_proc)
+        l_val.append(l)
+
+    return C2_proc, C1_val, C2_val, C1_percent_array, C2_percent_array, l_val
+
+
+C2_proc, C1_val, C2_val, C1_percent_array, C2_percent_array, l_val = calculating_model(L)
 
 print(f"Концентрация бензола на входе: {C1_val[0]} моль/м^3, {C1_percent_array[0]} %")
 print("m0 =", m0)
-
-# Численное интегрирование по длине трубы методом Эйлера
-while l < L:
-    C1_0 = C1
-    C1 += f_C1(C1, m0) * d_l
-    C2 += f_C2(C1_0, C2, m0) * d_l
-    l += d_l
-
-    C1_val.append(C1)
-    C2_val.append(C2)
-    C1_proc = percent_C(C1, mu_C1)
-    C2_proc = percent_C(C2, mu_C2)
-    C1_percent_array.append(C1_proc)
-    C2_percent_array.append(C2_proc)
-    l_val.append(l)
-
 print(f"Концентрация малеинового ангидрида на выходе: {C2_val[-1]} моль/м^3, {C2_percent_array[-1]} %")
 print(f"Длина трубы: {l_val[-1]} м")
 
