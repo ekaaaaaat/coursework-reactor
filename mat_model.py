@@ -65,6 +65,8 @@ def f_C2(C1, C2, m):
 
 
 def calculating_model(L):
+    # Расчет математической модели для заданной длины L.
+
     # Расчет входной концентрации бензола
     C1 = (m_c1 * ro) / ((m_c1 + m_O2) * mu_C1)
 
@@ -104,6 +106,7 @@ def calculating_model(L):
 
 C2_proc, C1_val, C2_val, C1_percent_array, C2_percent_array, l_val = calculating_model(L)
 
+print("Проверка правильности математической модели")
 print(f"Концентрация бензола на входе: {C1_val[0]} моль/м^3, {C1_percent_array[0]} %")
 print(f"Концентрация малеинового ангидрида на выходе: {C2_val[-1]} моль/м^3, {C2_percent_array[-1]} %")
 print(f"Длина трубы: {l_val[-1]} м")
