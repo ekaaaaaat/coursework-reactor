@@ -74,3 +74,8 @@ if type_ex == 'минимум':
 else:
     ak_values, bk_values, x_values = golden_ratio(a0, b0, negative_f, eps)
 print(f'x* = {x_values[-1]:.6f} y* = {f(x_values[-1]):.6f}')
+
+table = []
+for i in range(len(x_values)):
+    table.append([i, ak_values[i], bk_values[i], x_values[i]])
+print(tabulate(table, headers=["Итерация", "a", "b", "x"], tablefmt="pretty"))
