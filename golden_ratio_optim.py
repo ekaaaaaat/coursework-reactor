@@ -69,3 +69,8 @@ def golden_ratio(a_, b_, f_, eps_):
 
 type_ex = type_of_extremum(a0, b0, f)
 print('Тип экстремума: ' + type_ex)
+if type_ex == 'минимум':
+    ak_values, bk_values, x_values = golden_ratio(a0, b0, f, eps)
+else:
+    ak_values, bk_values, x_values = golden_ratio(a0, b0, negative_f, eps)
+print(f'x* = {x_values[-1]:.6f} y* = {f(x_values[-1]):.6f}')
