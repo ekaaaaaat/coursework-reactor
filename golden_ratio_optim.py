@@ -19,6 +19,7 @@ def negative_f(x):
 
 
 def type_of_extremum(a_, b_, f_):
+    # Функция для определения типа экстремума
     c = (a_ + b_) / 2
     if f_(a_) > f_(c) or f_(b_) > f_(c):
         type_ex = 'минимум'
@@ -28,12 +29,13 @@ def type_of_extremum(a_, b_, f_):
 
 
 def golden_ratio(a_, b_, f_, eps_):
+    # Метод золотого сечения для поиска минимума функции f_ на интервале [a_, b_]
+
     ak, bk, x_list = [], [], []
 
     left = a_
     right = b_
     t = (3 - np.sqrt(5)) / 2
-    print(t)
 
     ak.append(left)
     bk.append(right)
@@ -68,6 +70,8 @@ def golden_ratio(a_, b_, f_, eps_):
 
 
 def graf(a_, b_, f_, ak, bk, x):
+    # Функция для построения графика целевой функции и последовательности отрезков [ak, bk]
+
     plt.xlabel("x")
     plt.ylabel("y")
     plt.grid()
