@@ -25,3 +25,47 @@ def type_of_extremum(a_, b_, f_):
     else:
         type_ex = 'максимум'
     return type_ex
+
+
+def golden_ratio(a_, b_, f_, eps_):
+    ak, bk, x_list = [], [], []
+
+    left = a_
+    right = b_
+    t = (3 - np.sqrt(5)) / 2
+    print(t)
+
+    ak.append(left)
+    bk.append(right)
+    x = (left + right) / 2
+    x_list.append(x)
+
+    x1 = left + (right - left) * t
+    x2 = right - (right - left) * t
+    f1 = f_(x1)
+    f2 = f_(x2)
+
+    while abs(left - right) > eps_:
+        if f1 < f2:
+            right = x2
+            x2 = x1
+            f2 = f1
+            x1 = left + (right - left) * t
+            f1 = f_(x1)
+        else:
+            left = x1
+            x1 = x2
+            f1 = f2
+            x2 = right - (right - left) * t
+            f2 = f_(x2)
+
+        ak.append(left)
+        bk.append(right)
+        x = (left + right) / 2
+        x_list.append(x)
+
+    return ak, bk, x_list
+
+
+type_ex = type_of_extremum(a0, b0, f)
+print('Тип экстремума: ' + type_ex)
