@@ -119,6 +119,24 @@ for beta in np.arange((tau_max-tau_s)/2, tau_max/2, d_beta):
 print("C2", C2_show)
 print("tau", tau_show)
 
+# Построение графиков
 tau, l, C1 = zip(*data)
+fig = plt.figure(figsize=(6, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(tau, l, C1, c=C1, cmap='inferno')
+ax.set_xlabel('Время τ (с)')
+ax.set_ylabel('Расстояние l (м)')
+ax.set_zlabel('Концентрация C1')
+ax.view_init(elev=20, azim=-45)
+plt.show()
+
 tau2, l2, C2 = zip(*data2)
+fig = plt.figure(figsize=(6, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(tau2, l2, C2, c=C2, cmap='inferno')
+ax.set_xlabel('Время τ (с)')
+ax.set_ylabel('Расстояние l (м)')
+ax.set_zlabel('Концентрация C2')
+ax.view_init(elev=20, azim=-45)
+plt.show()
 
