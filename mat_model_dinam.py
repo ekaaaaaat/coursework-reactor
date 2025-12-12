@@ -34,14 +34,12 @@ k1 = A1 * np.exp(-E1 / (R*T))
 k2 = A2 * np.exp(-E2 / (R*T))
 k3 = A3 * np.exp(-E3 / (R*T))
 
-print("k1 =", k1, "k2 =", k2, "k3 =", k3)
 
 # Расчет массового расхода реакционной среды, кг/с.
 m = m_c1 + m_O2
 
 # Расчет скорости движения реакционной среды через аппарат
 u = (4 * m) / (ro*np.pi*D**2)
-print("u", u)
 
 L = 3.47  # длина трубы найденная на этапе оптимизации
 tau_max = 200
@@ -98,7 +96,6 @@ def integrate(C1_initial, C2_initial, alpha_start, alpha_end, step, beta):
 for beta in np.arange(0, (tau_max-tau_s)/2, d_beta):
     alpha_start = beta
     alpha_end = beta + tau_s
-    print("2*beta",2*beta)
     C1_initial = f_Cvh(2*beta)
     C1_final, C2_final, tau = integrate(C1_initial, 0, alpha_start, alpha_end, d_alpha, beta)
     C1_show.append(C1_initial)
@@ -115,9 +112,6 @@ for beta in np.arange((tau_max-tau_s)/2, tau_max/2, d_beta):
     C1_show.append(C1_initial)
     C2_show.append(C2_final)
     tau_show.append(tau)
-
-print("C2", C2_show)
-print("tau", tau_show)
 
 
 # Построение графиков
