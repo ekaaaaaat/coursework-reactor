@@ -40,13 +40,24 @@ def dispersion(z, M):
     return sum([(i - M)**2 for i in z]) / len(z)
 
 
+def generate_process_z(x, A1, A2, sigma0_2, sigma_x0_2, alpha0, M0, Ns):
+    # Функция генерации случайного процесса
+    z = []
+    for k in range(len(x) - Ns):
+        ssum = 0
+        for i in range(k, k + Ns):
+            ssum += x[i] * math.sqrt(sigma0_2 / (sigma_x0_2 * alpha0 * A2)) * A1 * math.exp(-A2 * alpha0 * abs(i - k))
+        z.append((1 / Ns) * ssum + M0)
+    return z
+
+
 # Основная программа
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
-print(x)
+# print(x)
 
 Mx = checkmate_waiting(x)
 sigma_x2 = dispersion(x, Mx)
-print(Mx, sigma_x2)
+# print(Mx, sigma_x2)
 
 # # Центрирование, если Mx ≠ 0
 if abs(Mx) > 1e-6:
@@ -54,5 +65,19 @@ if abs(Mx) > 1e-6:
     Mx = checkmate_waiting(x)
     sigma_x2 = dispersion(x, Mx)
 
-print(x)
-print(Mx, sigma_x2)
+# print(x)
+# print(Mx, sigma_x2)
+
+# Генерация процесса z
+z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
+print(z)
+
+# Характеристики процесса
+Mz = checkmate_waiting(z)
+sigma_z2 = dispersion(z, Mz)
+
+# ВЫВОД1
+print(f"Mx = {Mx:.4f}")
+print(f"sigma_x^2 = {sigma_x2:.4f}")
+print(f"Mz = {Mz:.4f}")
+print(f"sigma_z^2 = {sigma_z2:.4f}")
