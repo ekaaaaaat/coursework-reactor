@@ -40,6 +40,18 @@ def dispersion(z, M):
     return sum([(i - M)**2 for i in z]) / len(z)
 
 
+# Корреляционная функция
+def correlation_function(z, M, Smax):
+    N = len(z)
+    K = []
+    for S in range(Smax):
+        ssum = 0
+        for i in range(N - S):
+            ssum += (z[i] - M) * (z[i + S] - M)
+        K.append(ssum / (N - S))
+    return K
+
+
 def generate_process_z(x, A1, A2, sigma0_2, sigma_x0_2, alpha0, M0, Ns):
     # Функция генерации случайного процесса
     z = []
@@ -75,6 +87,8 @@ print(z)
 # Характеристики процесса
 Mz = checkmate_waiting(z)
 sigma_z2 = dispersion(z, Mz)
+Kz = correlation_function(z, Mz, Kz_num)
+print("Kz", Kz)
 
 # ВЫВОД1
 print(f"Mx = {Mx:.4f}")
