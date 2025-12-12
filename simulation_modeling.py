@@ -19,3 +19,16 @@ Ns = 10  # количество суммируемых членов ряда х
 M0 = 770  # (моль/м^3) мат.ожидание
 sigma0_2 = 400  # дисперсия
 alpha0 = 0.09  # параметр аппроксимации
+
+
+def generation_congurent_method(n, lam1, lam2, x0):
+    # Функция генерации случайных чисел (Конгруэнтный метод)
+    x = [x0]
+    for i in range(1, n):
+        x.append((lam1 * x[i-1]) % lam2)
+    x_norm = [xi / lam2 - 0.5 for xi in x]  # нормализация в [-0.5; 0.5]
+    return x_norm
+
+
+x = generation_congurent_method(N, lambda1, lambda2, Z0)
+print(x)
