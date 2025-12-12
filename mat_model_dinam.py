@@ -4,8 +4,6 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from simulation_modeling import z
 
-print("z", z)
-print(len(z))
 
 # Константы
 # Физические константы и параметры задачи
@@ -70,5 +68,5 @@ def f_Cvh(tau):
     # Функция граничного условия С1вх(tau) на основе случайного процесса z
     return z[int(tau)]
 
-print(f_Cvh(1.3))
+
 
