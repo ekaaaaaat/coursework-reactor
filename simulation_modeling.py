@@ -30,5 +30,12 @@ def generation_congurent_method(n, lam1, lam2, x0):
     return x_norm
 
 
+def checkmate_waiting(z):
+    # Математическое ожидание
+    return sum(z) / len(z)
+
+
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
 print(x)
+Mx = checkmate_waiting(x)
+print(Mx)
