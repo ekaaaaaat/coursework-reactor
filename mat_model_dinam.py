@@ -93,3 +93,15 @@ def integrate(C1_initial, C2_initial, alpha_start, alpha_end, step, beta):
 
     return C1, C2, tau
 
+
+# Область II: beta ∈ [0, (tau_max-tau_s)/2]
+for beta in np.arange(0, (tau_max-tau_s)/2, d_beta):
+    alpha_start = beta
+    alpha_end = beta + tau_s
+    print("2*beta",2*beta)
+    C1_initial = f_Cvh(2*beta)
+    C1_final, C2_final, tau = integrate(C1_initial, 0, alpha_start, alpha_end, d_alpha, beta)
+    C1_show.append(C1_initial)
+    C2_show.append(C2_final)
+    tau_show.append(tau)
+
