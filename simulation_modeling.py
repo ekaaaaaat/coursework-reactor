@@ -190,3 +190,24 @@ print(f"sigma_z^2 = {sigma_z2:.4f}")
 print(f"alpha_z = {alpha_z:.4f}")
 print(f"A1 = {A1:.4f}, A2 = {A2:.4f}")
 
+
+#ГРАФИКИ
+fig, axs = plt.subplots(3, 1, figsize=(7, 7))
+
+axs[0].plot(x, color='magenta')
+axs[0].set_title("Ряд случайных чисел (конгруэнтный метод)")
+axs[0].grid()
+
+axs[1].plot(z, color='green')
+axs[1].set_title("Случайный процесс z(k)")
+axs[1].grid()
+
+S = np.arange(Kz_num)
+axs[2].plot(S, Kz, 'bo-', label='Kz(S)')
+axs[2].plot(S, K_apr, 'r--', label='sigma_z2 * exp(-αS)')
+axs[2].legend()
+axs[2].set_title("Корреляционная функция и аппроксимация")
+axs[2].grid()
+
+plt.tight_layout()
+plt.show()
