@@ -81,6 +81,53 @@ def generate_process_z(x, A1, A2, sigma0_2, sigma_x0_2, alpha0, M0, Ns):
     return z
 
 
+# Подбор A1, A2 методом градиентного спуска
+def gradient_search(x, sigma_x2, M0, sigma0_2, alpha0, Ns,
+                    A1_init=1.0, A2_init=1.0,
+                    lr=0.01, delta=0.05,
+                    max_iter=1000, tol=0.1):
+
+    def process_error(A1, A2):
+        z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
+        Mz = checkmate_waiting(z)
+        sigma_z2 = dispersion(z, Mz)
+        Kz = correlation_function(z, Mz, Kz_num)
+        alpha_z, _ = approximate_alpha(range(Kz_num), Kz, sigma_z2)
+        err = abs((Mz - M0)/M0) + abs((sigma_z2 - sigma0_2)/sigma0_2) + abs((alpha_z - alpha0)/alpha0)
+        return err
+
+    A1, A2 = A1_init, A2_init
+    best_err = process_error(A1, A2)
+
+    for iteration in range(max_iter):
+        # численные производные
+        E0 = process_error(A1, A2)
+
+        E_A1_plus = process_error(A1 + delta, A2)
+        E_A1_minus = process_error(A1 - delta, A2)
+        grad_A1 = (E_A1_plus - E_A1_minus) / (2 * delta)
+
+        E_A2_plus = process_error(A1, A2 + delta)
+        E_A2_minus = process_error(A1, A2 - delta)
+        grad_A2 = (E_A2_plus - E_A2_minus) / (2 * delta)
+
+        # обновляем A1, A2
+        A1 -= lr * grad_A1
+        A2 -= lr * grad_A2
+
+        # пересчёт ошибки
+        err = process_error(A1, A2)
+
+        if err < best_err:
+            best_err = err
+
+        # Условие выхода
+        if err < tol or best_err < 0.1:
+            break
+
+    return A1, A2
+
+
 # Основная программа
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
 # print(x)
@@ -100,7 +147,7 @@ if abs(Mx) > 1e-6:
 
 # Генерация процесса z
 z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
-print(z)
+# print(z)
 
 # Характеристики процесса
 Mz = checkmate_waiting(z)
@@ -116,3 +163,30 @@ print(f"Mz = {Mz:.4f}")
 print(f"sigma_z^2 = {sigma_z2:.4f}")
 print(f"alpha_z = {alpha_z:.4f}")
 print(f"A1 = {A1:.4f}, A2 = {A2:.4f}")
+
+
+# Проверка 10%-ного отклонения
+def is_within_tolerance(value, target, tol=0.1):
+    return abs((value - target) / target) <= tol
+
+
+if not (is_within_tolerance(Mz, M0) and
+        is_within_tolerance(sigma_z2, sigma0_2) and
+        is_within_tolerance(alpha_z, alpha0)):
+    print("Отклонение более 10%. Запускаем градиентный спуск...")
+    A1, A2 = gradient_search(x, sigma_x2, M0, sigma0_2, alpha0, Ns)
+    z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
+    Mz = checkmate_waiting(z)
+    sigma_z2 = dispersion(z, Mz)
+    Kz = correlation_function(z, Mz, Kz_num)
+    alpha_z, K_apr = approximate_alpha(range(Kz_num), Kz, sigma_z2)
+
+
+# ВЫВОД2
+print(f"Mx = {Mx:.4f}")
+print(f"sigma_x^2 = {sigma_x2:.4f}")
+print(f"Mz = {Mz:.4f}")
+print(f"sigma_z^2 = {sigma_z2:.4f}")
+print(f"alpha_z = {alpha_z:.4f}")
+print(f"A1 = {A1:.4f}, A2 = {A2:.4f}")
+
