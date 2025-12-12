@@ -40,9 +40,19 @@ def dispersion(z, M):
     return sum([(i - M)**2 for i in z]) / len(z)
 
 
+# Основная программа
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
 print(x)
 
 Mx = checkmate_waiting(x)
 sigma_x2 = dispersion(x, Mx)
+print(Mx, sigma_x2)
+
+# # Центрирование, если Mx ≠ 0
+if abs(Mx) > 1e-6:
+    x = [xi - Mx for xi in x]
+    Mx = checkmate_waiting(x)
+    sigma_x2 = dispersion(x, Mx)
+
+print(x)
 print(Mx, sigma_x2)
