@@ -76,3 +76,20 @@ C1_show = []
 C2_show = []
 tau_show = []
 
+
+def integrate(C1_initial, C2_initial, alpha_start, alpha_end, step, beta):
+    C1 = C1_initial
+    C2 = C2_initial
+    alpha = alpha_start
+    while alpha <= alpha_end:
+        C1_0 = C1
+        C1 += dC1_dalpha(C1) * step
+        C2 += dC2_dalpha(C1_0, C2) * step
+        l = u * (alpha - beta)
+        tau = alpha + beta
+        alpha += step
+        data.append((tau, l, C1))
+        data2.append((tau, l, C2))
+
+    return C1, C2, tau
+
