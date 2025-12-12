@@ -132,11 +132,9 @@ def gradient_search(x, sigma_x2, M0, sigma0_2, alpha0, Ns,
 
 # Основная программа
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
-# print(x)
 
 Mx = checkmate_waiting(x)
 sigma_x2 = dispersion(x, Mx)
-# print(Mx, sigma_x2)
 
 # # Центрирование, если Mx ≠ 0
 if abs(Mx) > 1e-6:
