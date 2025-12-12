@@ -35,7 +35,14 @@ def checkmate_waiting(z):
     return sum(z) / len(z)
 
 
+# Дисперсия
+def dispersion(z, M):
+    return sum([(i - M)**2 for i in z]) / len(z)
+
+
 x = generation_congurent_method(N, lambda1, lambda2, Z0)
 print(x)
+
 Mx = checkmate_waiting(x)
-print(Mx)
+sigma_x2 = dispersion(x, Mx)
+print(Mx, sigma_x2)
