@@ -119,3 +119,6 @@ for beta in np.arange((tau_max-tau_s)/2, tau_max/2, d_beta):
 print("C2", C2_show)
 print("tau", tau_show)
 
+tau, l, C1 = zip(*data)
+tau2, l2, C2 = zip(*data2)
+
