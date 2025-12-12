@@ -69,4 +69,10 @@ def f_Cvh(tau):
     return z[int(tau)]
 
 
+data = []
+data2 = []
+
+C1_show = []
+C2_show = []
+tau_show = []
 
