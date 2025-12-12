@@ -140,7 +140,6 @@ print("tau", tau_show)
 # ax.view_init(elev=20, azim=-45)
 # plt.show()
 
-k = np.linspace(0, tau_max, 1)
 
 plt.figure(figsize=(10, 5))
 plt.subplot(2, 1, 1)
