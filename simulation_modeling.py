@@ -31,17 +31,17 @@ def generation_congurent_method(n, lam1, lam2, x0):
 
 
 def checkmate_waiting(z):
-    # Математическое ожидание
+    # Функция для определения математического ожидания
     return sum(z) / len(z)
 
 
-# Дисперсия
 def dispersion(z, M):
+    # Функция для определения дисперсии
     return sum([(i - M)**2 for i in z]) / len(z)
 
 
-# Корреляционная функция
 def correlation_function(z, M, Smax):
+    # Функция для расчета значений корреляционной функции
     N = len(z)
     K = []
     for S in range(Smax):
@@ -54,6 +54,7 @@ def correlation_function(z, M, Smax):
 
 # Аппроксимация
 def approximate_alpha(S, K, sig_2, max_iter=1000):
+    # Функция для аппроксимирования значений корреляционной функции
     alph = []
     for i in range(len(S)):
         alp = 1
@@ -88,6 +89,7 @@ def gradient_search(x, sigma_x2, M0, sigma0_2, alpha0, Ns,
                     max_iter=1000, tol=0.1):
 
     def process_error(A1, A2):
+        # функция для определения отклонения
         z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
         Mz = checkmate_waiting(z)
         sigma_z2 = dispersion(z, Mz)
@@ -142,19 +144,15 @@ if abs(Mx) > 1e-6:
     Mx = checkmate_waiting(x)
     sigma_x2 = dispersion(x, Mx)
 
-# print(x)
-# print(Mx, sigma_x2)
 
 # Генерация процесса z
 z = generate_process_z(x, A1, A2, sigma0_2, sigma_x2, alpha0, M0, Ns)
-# print(z)
 
 # Характеристики процесса
 Mz = checkmate_waiting(z)
 sigma_z2 = dispersion(z, Mz)
 Kz = correlation_function(z, Mz, Kz_num)
 alpha_z, K_apr = approximate_alpha(range(Kz_num), Kz, sigma_z2)
-# print("Kz", Kz)
 
 # ВЫВОД1
 print(f"Mx = {Mx:.4f}")
