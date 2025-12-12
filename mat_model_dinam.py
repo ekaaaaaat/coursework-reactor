@@ -105,3 +105,17 @@ for beta in np.arange(0, (tau_max-tau_s)/2, d_beta):
     C2_show.append(C2_final)
     tau_show.append(tau)
 
+
+# Область III: beta ∈ [(tau_max-tau_s)/2, tau_max/2]
+for beta in np.arange((tau_max-tau_s)/2, tau_max/2, d_beta):
+    alpha_start = beta
+    alpha_end = -beta + tau_max
+    C1_initial = f_Cvh(2 * beta)
+    C1_final, C2_final, tau = integrate(C1_initial, 0, alpha_start, alpha_end, d_alpha, beta)
+    C1_show.append(C1_initial)
+    C2_show.append(C2_final)
+    tau_show.append(tau)
+
+print("C2", C2_show)
+print("tau", tau_show)
+
